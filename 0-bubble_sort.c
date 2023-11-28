@@ -1,48 +1,39 @@
 #include "sort.h"
 /**
- * swap - function that swaps two nodes in double linked list
- * @list: doubly linked list
- * @first: first node to swap
- * @second: second node to swap
+ * swap - function that swaps two integers
+ * @x: first int to swap
+ * @y: second int to swap
  */
-void swap(listint_t **list, listint_t *first, listint_t *second)
+void swap(int *x, int *y)
 {
+	int aux = *x;
 
-	if (first == NULL || second == NULL)
-		return;
-	if (*list == first)
-		*list = second;
-	if (first->prev != NULL)
-		(first->prev)->next = first->next;
-	if (second->next != NULL)
-		(second->next)->prev = second->prev;
-	first->next = second->next;
-	second->next = first;
-	second->prev = first->prev;
-	first->prev = second;
+	*x = *y;
+	*y = aux;
 }
 /**
- * insertion_sort_list - function that sorts a doubly linked list
- * of integers in ascending order using the Insertion sort algorithm
- * @list: doubly linked list
+ * bubble_sort - function that sorts an array of integers in
+ * ascending order using the Bubble sort algorithm
+ * @array: array to sort
+ * @size: size of array
  */
-void insertion_sort_list(listint_t **list)
+void bubble_sort(int *array, size_t size)
 {
-	listint_t *previous, *current, *next;
+	size_t i, j;
 
-	if (list == NULL || *list == NULL)
-		return;
-	current = *list;
-	while (current != NULL)
+	if (size < 1)
 	{
-		previous = current->prev;
-		next = current->next;
-		while (previous != NULL && current->n < previous->n)
+		return;
+	}
+	for (i = 0; i < size - 1; i++)
+	{
+		for (j = 0; j < size - i - 1; j++)
 		{
-			swap(list, previous, current);
-			print_list(*list);
-			previous = current->prev;
+			if (array[j] > array[j + 1])
+			{
+				swap(&array[j], &array[j + 1]);
+				print_array(array, size);
+			}
 		}
-		current = next;
 	}
 }

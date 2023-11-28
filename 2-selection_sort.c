@@ -1,25 +1,40 @@
-#ifndef SORT_H
-#define SORT_H
-#include <stdio.h>
-#include <stdlib.h>
+#include "sort.h"
 /**
- * struct listint_s - Doubly linked list node
- *
- * @n: Integer stored in the node
- * @prev: Pointer to the previous element of the list
- * @next: Pointer to the next element of the list
+ * swap - function that swaps two integers
+ * @x: first int to swap
+ * @y: second int to swap
  */
-typedef struct listint_s
+void swap(int *x, int *y)
 {
-	const int n;
-	struct listint_s *prev;
-	struct listint_s *next;
-} listint_t;
-void print_array(const int *array, size_t size);
-void print_list(const listint_t *list);
-void bubble_sort(int *array, size_t size);
-void insertion_sort_list(listint_t **list);
-void selection_sort(int *array, size_t size);
-void quick_sort(int *array, size_t size);
-void shell_sort(int *array, size_t size);
-#endif
+	int aux = *x;
+
+	*x = *y;
+	*y = aux;
+}
+/**
+ * selection_sort - function that sorts an array of integers in
+ * ascending order using the Selection sort algorithm
+ * @array: array to sort
+ * @size: size of array
+ */
+void selection_sort(int *array, size_t size)
+{
+	size_t i, j, min;
+
+	if (size < 1)
+		return;
+	for (i = 0; i < size - 1; i++)
+	{
+		min = i;
+		for (j = i + 1; j < size; j++)
+		{
+			if (array[j] < array[min])
+				min = j;
+		}
+		if (min != i)
+		{
+			swap(&array[min], &array[i]);
+			print_array(array, size);
+		}
+	}
+}

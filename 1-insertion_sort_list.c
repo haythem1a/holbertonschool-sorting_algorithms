@@ -1,77 +1,48 @@
 #include "sort.h"
 /**
- * swap - function that swaps two integers
- * @x: first int to swap
- * @y: second int to swap
+ * swap - function that swaps two nodes in double linked list
+ * @list: doubly linked list
+ * @first: first node to swap
+ * @second: second node to swap
  */
-void swap(int *x, int *y)
+void swap(listint_t **list, listint_t *first, listint_t *second)
 {
-	int aux = *x;
 
-	*x = *y;
-	*y = aux;
-}
-/**
- * Lomutopartition - function lumuto partion
- * @array: array
- * @low: low index
- * @high: high index
- * @size: array size
- * Return: pivot
- */
-int Lomutopartition(int array[], size_t low, size_t high, size_t size)
-{
-	size_t i, j;
-	int pivot;
-
-	i = low - 1;
-	pivot = array[high];
-	for (j = low; j < high; j++)
-	{
-		if (array[j] <= pivot)
-		{
-			i++;
-			if (i != j)
-			{
-				swap(&array[i], &array[j]);
-				print_array(array, size);
-			}
-		}
-	}
-	if (array[i + 1] > array[high])
-	{
-		swap(&array[i + 1], &array[high]);
-		print_array(array, size);
-	}
-	return (i + 1);
-}
-/**
- * recursivequickSort - recursive function for quicksort
- * @array: array
- * @low: low index
- * @high: high index
- * @size: array size
- */
-void recursivequickSort(int array[], int low, int high, size_t size)
-{
-	int pi;
-
-	if (low < high)
-	{
-		pi = Lomutopartition(array, low, high, size);
-		recursivequickSort(array, low, pi - 1, size);
-		recursivequickSort(array, pi + 1, high, size);
-	}
-}
-/**
- * quick_sort - function that sorts an array of integers in
- * ascending order using the Quick sort algorithm
- * @array: array to sort
- * @size: size of array
- */
-void quick_sort(int *array, size_t size)
-{
-	if (size < 1)
+	if (first == NULL || second == NULL)
 		return;
-	recursivequickSort(array, 0, size - 1, size);
+	if (*list == first)
+		*list = second;
+	if (first->prev != NULL)
+		(first->prev)->next = first->next;
+	if (second->next != NULL)
+		(second->next)->prev = second->prev;
+	first->next = second->next;
+	second->next = first;
+	second->prev = first->prev;
+	first->prev = second;
+}
+/**
+ * insertion_sort_list - function that sorts a doubly linked list
+ * of integers in ascending order using the Insertion sort algorithm
+ * @list: doubly linked list
+ */
+void insertion_sort_list(listint_t **list)
+{
+	listint_t *previous, *current, *next;
+
+	if (list == NULL || *list == NULL)
+		return;
+	current = *list;
+	while (current != NULL)
+	{
+		previous = current->prev;
+		next = current->next;
+		while (previous != NULL && current->n < previous->n)
+		{
+			swap(list, previous, current);
+			print_list(*list);
+			previous = current->prev;
+		}
+		current = next;
+	}
 }

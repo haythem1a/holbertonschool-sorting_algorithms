@@ -6,10 +6,10 @@
  */
 void swap(int *x, int *y)
 {
-    int aux = *x;
+	int aux = *x;
 
-    *x = *y;
-    *y = aux;
+	*x = *y;
+	*y = aux;
 }
 /**
  * Lomutopartition - function lumuto partion
@@ -21,29 +21,29 @@ void swap(int *x, int *y)
  */
 int Lomutopartition(int array[], size_t low, size_t high, size_t size)
 {
-    size_t i, j;
-    int pivot;
+	size_t i, j;
+	int pivot;
 
-    i = low - 1;
-    pivot = array[high];
-    for (j = low; j < high; j++)
-    {
-        if (array[j] <= pivot)
-        {
-            i++;
-            if (i != j)
-            {
-                swap(&array[i], &array[j]);
-                print_array(array, size);
-            }
-        }
-    }
-    if (array[i + 1] > array[high])
-    {
-        swap(&array[i + 1], &array[high]);
-        print_array(array, size);
-    }
-    return (i + 1);
+	i = low - 1;
+	pivot = array[high];
+	for (j = low; j < high; j++)
+	{
+		if (array[j] <= pivot)
+		{
+			i++;
+			if (i != j)
+			{
+				swap(&array[i], &array[j]);
+				print_array(array, size);
+			}
+		}
+	}
+	if (array[i + 1] > array[high])
+	{
+		swap(&array[i + 1], &array[high]);
+		print_array(array, size);
+	}
+	return (i + 1);
 }
 /**
  * recursivequickSort - recursive function for quicksort
@@ -54,14 +54,14 @@ int Lomutopartition(int array[], size_t low, size_t high, size_t size)
  */
 void recursivequickSort(int array[], int low, int high, size_t size)
 {
-    int pi;
+	int pi;
 
-    if (low < high)
-    {
-        pi = Lomutopartition(array, low, high, size);
-        recursivequickSort(array, low, pi - 1, size);
-        recursivequickSort(array, pi + 1, high, size);
-    }
+	if (low < high)
+	{
+		pi = Lomutopartition(array, low, high, size);
+		recursivequickSort(array, low, pi - 1, size);
+		recursivequickSort(array, pi + 1, high, size);
+	}
 }
 /**
  * quick_sort - function that sorts an array of integers in
@@ -71,7 +71,7 @@ void recursivequickSort(int array[], int low, int high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-    if (size < 1)
-        return;
-    recursivequickSort(array, 0, size - 1, size);
+	if (size < 1)
+		return;
+	recursivequickSort(array, 0, size - 1, size);
 }
